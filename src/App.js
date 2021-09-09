@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import useDelete from "./hooks/useDelete";
 
 function App() {
+  const [students, newList, deleteStudent] = useDelete();
+  const [input, setInput] = useState("");
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+      学生一覧：[{students.join(", ")}] <br /> <br />
+      削除する名前を入力してください。
+      <br /> <br />
+      <input type="text" value={input} onChange={handleChange} /> <br /> <br />
+      <button
+        onClick={() => {
+          deleteStudent(input);
+        }}
+      >
+        確定
+      </button>
+      <br /> <br />
+      削除する名前: {input} <br /> <br />
+      新しいー覧：[{newList.join(", ")}]
     </div>
   );
 }
